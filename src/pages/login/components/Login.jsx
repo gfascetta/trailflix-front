@@ -1,34 +1,62 @@
 import { useState } from 'react';
 import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
-import { FormControl, InputLabel, Input, FormHelperText,  Stack } from '@mui/material';
+import { FormControl, TextField} from '@mui/material';
 
-export const Login = ({name, edadPorFecha, fechaNac, countValue, handleSetCount, }) => {
+export const Login = ({name, edadPorFecha, fechaNac, countValue, handleSetCount,  }) => {
 
-    const [span, setSpan] = useState("");
 
-    const pasarAMayus = (str) => {
-        setSpan("hola".concat(' ',str).toUpperCase().split("").reverse().join(""));
-    }
+    const [value, setValue] = useState(""); 
+    //const [result, setResult] = useState(""); 
+
+    function handleSubmit(e) { 
+        e.preventDefault();
+        console.log("evento: ", e);
+        console.log("target :", e.target);
+        console.log("primer input: ", e.target[0]); // no me parece piola. si cambio el form va a apuntar a otro componente.
+        console.log("value primer input: ", e.target[0].value); 
+
+
+        //setResult("Form has been submitted with with Input: " + value ); 
+        console.log("SUBMITEADO");
+        // validar los campos. que no esten empty y que la password cumpla requisitos
+        // sino que los marque rojos
+    } 
+  
+    function handleChange(e) { 
+        setValue(e.target.value); 
+        //setResult(""); 
+    } 
 
     return (
-        <div>
-            <h1>Hello {name}, edad:{edadPorFecha(fechaNac)}</h1>
-            <FormControl>
-                <InputLabel htmlFor="my-input">Email address</InputLabel>
-                <Input 
-                    id="my-input" 
-                    aria-describedby="my-helper-text"
-                    onChange={(e) => pasarAMayus(e.target.value)}
+        <div style={{ textAlign: "center", margin: "auto" }}>
+            <h1>Sign in</h1>
+            <FormControl component="form" onSubmit={handleSubmit}>
+                {/* textfield puede abstraerse como componente que reciba como props id, label y una fn para el oninput */}
+                <TextField 
+                    id="username"
+                    label="Username"
+                    variant="outlined"
+                    required="true"
+                    //onChange={(e) => console.log("username: ", e.target.value)}
+                    onInput={handleChange}
                 />
-                <span>{span}</span>
-                <FormHelperText id="my-helper-text">We'll never share your email</FormHelperText>
+                <br />
+                <TextField 
+                    id="password"
+                    label="Password"
+                    variant="outlined"
+                    required="true"
+                    //onChange={(e) => console.log("password: ", e.target.value)}
+                    onInput={handleChange}
+                    // error="true"
+                />
+                <br />
+                <Button type="submit" variant="contained">Sign in</Button>
             </FormControl>
-            <h2>Count: {countValue}</h2>
-            <Stack spacing={2} direction="row">
-                <Button variant="contained" onClick={() => handleSetCount(countValue+1)}>Add count +1</Button>
-                <Button variant="contained" onClick={() => handleSetCount(0)}>reset</Button>
-            </Stack> 
+            {/* <div> 
+                <h4>{result}</h4> 
+            </div>  */}
         </div>
        
     );
