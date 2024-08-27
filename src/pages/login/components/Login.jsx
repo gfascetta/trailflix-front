@@ -1,66 +1,78 @@
 import { useState } from 'react';
 import PropTypes from "prop-types";
-import Button from "@mui/material/Button";
-import { FormControl, TextField} from '@mui/material';
+import {FormControl, TextField, Container, Button, Avatar, IconButton, InputAdornment} from '@mui/material';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import {Visibility, VisibilityOff} from '@mui/icons-material';
 
-export const Login = ({name, edadPorFecha, fechaNac, countValue, handleSetCount,  }) => {
+export const Login = () => {
 
+    const [value, setValue] = useState("");
+    const [valid, setValid] = useState(true);
+  
+    const handleValidation = (e) => {
+        const reg = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$");
+        setValid(reg.test(e.target.value));
+        setValue(e.target.value);
+      };
 
-    const [value, setValue] = useState(""); 
-    //const [result, setResult] = useState(""); 
+     const [showPassword, setShowPassword] = useState(false);
 
-    function handleSubmit(e) { 
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleMouseDownPassword = (event) => {
+         event.preventDefault();
+    };
+
+    const handleSubmit = (e) => {
+
         e.preventDefault();
-        console.log("evento: ", e);
-        console.log("target :", e.target);
-        console.log("primer input: ", e.target[0]); // no me parece piola. si cambio el form va a apuntar a otro componente.
-        console.log("value primer input: ", e.target[0].value); 
-
-
-        //setResult("Form has been submitted with with Input: " + value ); 
-        console.log("SUBMITEADO");
-        // validar los campos. que no esten empty y que la password cumpla requisitos
-        // sino que los marque rojos
     } 
   
-    function handleChange(e) { 
-        setValue(e.target.value); 
-        //setResult(""); 
-    } 
 
     return (
-        <div style={{ textAlign: "center", margin: "auto" }}>
+        <Container centered>
+            <Avatar sx={{ m: 1, bgcolor: 'primary.main'}}>
+                <LockOutlinedIcon />
+            </Avatar>
             <h1>Sign in</h1>
-            <FormControl component="form" onSubmit={handleSubmit}>
+            <FormControl component="form" onSubmit={handleSubmit} variant="outlined">
                 {/* textfield puede abstraerse como componente que reciba como props id, label y una fn para el oninput */}
                 <TextField 
                     id="username"
                     label="Username"
                     variant="outlined"
                     required="true"
-                    //onChange={(e) => console.log("username: ", e.target.value)}
-                    onInput={handleChange}
+                    onInput={(e) => setUser(e.target.value)}
+                    maxLength="40"
                 />
                 <br />
                 <TextField 
                     id="password"
+                    placeholder='Password'
                     label="Password"
-                    variant="outlined"
+                    value={value}
                     required="true"
-                    //onChange={(e) => console.log("password: ", e.target.value)}
-                    onInput={handleChange}
-                    // error="true"
+                    onChange={(e) => handleValidation(e)}
+                    error={!valid}
+                    type={showPassword ? 'text' : 'password'}
+                    InputProps={{
+                        endAdornment:
+                            <InputAdornment position="end">
+                                <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                                edge="end"
+                                >
+                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        }}
                 />
                 <br />
                 <Button type="submit" variant="contained">Sign in</Button>
             </FormControl>
-            {/* <div> 
-                <h4>{result}</h4> 
-            </div>  */}
-        </div>
-       
+        </Container>
     );
-        
 }
 
 Login.propTypes = {
