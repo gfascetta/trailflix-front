@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import PropTypes from "prop-types";
 import {FormControl, TextField, Container, Button, Avatar, IconButton, InputAdornment} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
@@ -23,13 +22,13 @@ export const Login = () => {
     };
 
     const handleSubmit = (e) => {
-
+        // si es son correctas las cred username y pass que redirija a userprofile
         e.preventDefault();
     } 
   
 
     return (
-        <Container centered>
+        <Container>
             <Avatar sx={{ m: 1, bgcolor: 'primary.main'}}>
                 <LockOutlinedIcon />
             </Avatar>
@@ -40,7 +39,7 @@ export const Login = () => {
                     id="username"
                     label="Username"
                     variant="outlined"
-                    required="true"
+                    required
                     onInput={(e) => setUser(e.target.value)}
                     maxLength="40"
                 />
@@ -50,7 +49,7 @@ export const Login = () => {
                     placeholder='Password'
                     label="Password"
                     value={value}
-                    required="true"
+                    required
                     onChange={(e) => handleValidation(e)}
                     error={!valid}
                     type={showPassword ? 'text' : 'password'}
@@ -74,11 +73,3 @@ export const Login = () => {
         </Container>
     );
 }
-
-Login.propTypes = {
-    name: PropTypes.string,
-    edadPorFecha: PropTypes.func.isRequired,
-    fechaNac: PropTypes.string.isRequired,
-    countValue: PropTypes.number.isRequired,
-    handleSetCount: PropTypes.func.isRequired,
-};
