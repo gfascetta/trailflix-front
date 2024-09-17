@@ -34,9 +34,6 @@ export default function UserProfile() {
           Last Update: {userInfo.lastUpdate}
         </Typography>
         
-        <Typography align='left'>
-          Register Date: {userInfo.registerDate}
-        </Typography>
       </CardContent>
       
       <CardActions buttonflex="1">

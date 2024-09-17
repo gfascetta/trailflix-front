@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Container } from "@mui/material";
+import {Container } from "@mui/material";
 import { Login } from "./pages/login/components/Login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import UserProfile from './pages/userProfile/components/UserProfile';
@@ -13,7 +13,11 @@ const RoutesList = () => (
 
     <Route
       path='/' 
-      exact element={<h1>Home Page Component</h1>} />
+      exact element={
+        <Container maxWidth="md" >
+            <h1>Trailflix Home Page</h1>
+        </Container>
+    } />
 
     <Route
       path='/login' 
