@@ -3,6 +3,7 @@ import { useNavigate} from 'react-router-dom';
 import {Avatar, Button, ButtonGroup, Card, CardContent, CardActions, Typography} from '@mui/material';
 import { useUserContext, useUserInfoContext } from "../../../hooks/useUserContext";
 
+
 export default function UserProfile() {
   
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ export default function UserProfile() {
           <Button onClick={()=>{console.log('test')}}>See My Content</Button>
         </ButtonGroup>
       </CardActions>
-
+      {notify()}
     </Card>
   );
 }

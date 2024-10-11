@@ -10,9 +10,10 @@ import '@fontsource/roboto/700.css';
 import './index.css'
 import { CssBaseline } from '@mui/material';
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <CssBaseline /> {/*reinicia todos los estilos y mantiene apariencia consistente en toda la app*/}
-    <App />
+      <App />
   </StrictMode>,
 )

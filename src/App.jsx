@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import UserProfile from './pages/userProfile/components/UserProfile';
 import {UserProvider} from "./contexts/UserProvider";
 import { useUserContext} from './hooks/useUserContext';
-
+import Movies from './pages/movies/components/Movies';
 
 const RoutesList = () => (
 
@@ -14,7 +14,7 @@ const RoutesList = () => (
     <Route
       path='/' 
       exact element={
-        <Container maxWidth="md" >
+        <Container maxWidth="md">
             <h1>Trailflix Home Page</h1>
         </Container>
     } />
@@ -34,6 +34,12 @@ const RoutesList = () => (
       exact element={
         <UserProfile />
     } />
+
+    <Route 
+      path='/movies' 
+      exact element={
+        <Movies />
+    } />
     
     <Route path='*' element={<h1>NOT FOUND</h1>} />
   
@@ -45,7 +51,7 @@ const RoutesList = () => (
 export default function App(){
 
   const user = useUserContext();
-
+ 
   return(
     <Router>
      <UserProvider>
